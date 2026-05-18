@@ -1,0 +1,285 @@
+@import "tailwindcss";
+
+:root {
+  --background: #08111b;
+  --background-elevated: rgba(14, 28, 41, 0.86);
+  --background-strong: rgba(8, 18, 28, 0.96);
+  --foreground: #e6f1ff;
+  --muted: #89a3bd;
+  --border: rgba(110, 169, 214, 0.2);
+  --accent: #57d4ff;
+  --accent-strong: #7cf7d4;
+  --warn: #ffbf69;
+  --danger: #ff7a90;
+  --shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+html {
+  background:
+    radial-gradient(circle at top, rgba(87, 212, 255, 0.12), transparent 30%),
+    linear-gradient(180deg, #09111a 0%, #050b12 100%);
+}
+
+body {
+  min-height: 100vh;
+  background:
+    linear-gradient(rgba(87, 212, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(87, 212, 255, 0.05) 1px, transparent 1px),
+    radial-gradient(circle at top, rgba(124, 247, 212, 0.08), transparent 28%),
+    linear-gradient(180deg, #09111a 0%, #050b12 100%);
+  background-size: 32px 32px, 32px 32px, auto, auto;
+  color: var(--foreground);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 20% 10%, rgba(87, 212, 255, 0.14), transparent 18%),
+    radial-gradient(circle at 80% 0%, rgba(255, 191, 105, 0.08), transparent 16%);
+  opacity: 0.9;
+}
+
+::selection {
+  background: rgba(87, 212, 255, 0.24);
+  color: #f5fbff;
+}
+
+a,
+button,
+input,
+select,
+textarea {
+  transition:
+    border-color 180ms ease,
+    background-color 180ms ease,
+    color 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease;
+}
+
+button {
+  cursor: pointer;
+}
+
+input,
+select,
+textarea {
+  background: rgba(8, 18, 28, 0.82) !important;
+  border-color: rgba(110, 169, 214, 0.28) !important;
+  color: var(--foreground) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: rgba(137, 163, 189, 0.72);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: rgba(87, 212, 255, 0.75) !important;
+  box-shadow:
+    0 0 0 1px rgba(87, 212, 255, 0.7),
+    0 0 0 4px rgba(87, 212, 255, 0.12) !important;
+}
+
+select option {
+  background: #0b1621;
+  color: var(--foreground);
+}
+
+.bg-white {
+  background: linear-gradient(180deg, rgba(14, 28, 41, 0.92), rgba(9, 18, 28, 0.9)) !important;
+  border-color: var(--border) !important;
+  box-shadow: var(--shadow);
+}
+
+.border-gray-200,
+.border-gray-300 {
+  border-color: var(--border) !important;
+}
+
+.text-gray-900 {
+  color: #f2f8ff !important;
+}
+
+.text-gray-700,
+.text-gray-600 {
+  color: #a9bfd3 !important;
+}
+
+.text-gray-500,
+.text-gray-400,
+.text-gray-300 {
+  color: #7e97af !important;
+}
+
+.bg-gray-50,
+.bg-gray-100 {
+  background-color: rgba(255, 255, 255, 0.04) !important;
+}
+
+.hover\:bg-gray-50:hover,
+.hover\:bg-gray-100:hover,
+.hover\:bg-gray-200:hover {
+  background-color: rgba(87, 212, 255, 0.08) !important;
+}
+
+.bg-violet-50,
+.bg-indigo-50,
+.bg-teal-50,
+.bg-orange-50,
+.bg-amber-50,
+.bg-emerald-50,
+.bg-sky-50,
+.bg-blue-50,
+.bg-green-50,
+.bg-red-50 {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+.text-violet-600,
+.text-blue-600,
+.text-indigo-700,
+.text-violet-700,
+.text-blue-700,
+.text-teal-700,
+.text-orange-700,
+.text-amber-700,
+.text-emerald-700,
+.text-green-700,
+.text-red-600 {
+  color: var(--accent) !important;
+}
+
+.bg-violet-600,
+.bg-blue-600,
+.bg-indigo-600,
+.bg-orange-500,
+.bg-cyan-500,
+.bg-emerald-500 {
+  background:
+    linear-gradient(135deg, rgba(87, 212, 255, 0.95), rgba(71, 142, 255, 0.9)) !important;
+  color: #04111b !important;
+  border: 1px solid rgba(124, 247, 212, 0.35);
+  box-shadow: 0 10px 24px rgba(87, 212, 255, 0.22);
+}
+
+.hover\:bg-violet-700:hover,
+.hover\:bg-blue-700:hover,
+.hover\:bg-indigo-700:hover {
+  filter: brightness(1.08);
+}
+
+.from-violet-500,
+.via-purple-500,
+.to-pink-500,
+.from-indigo-500,
+.from-cyan-500,
+.via-blue-500,
+.to-indigo-600,
+.from-emerald-500,
+.via-teal-500,
+.to-cyan-500,
+.from-orange-500,
+.via-red-500,
+.to-pink-600 {
+  --tw-gradient-from: #102539 var(--tw-gradient-from-position) !important;
+  --tw-gradient-via: rgba(36, 84, 117, 0.92) var(--tw-gradient-via-position) !important;
+  --tw-gradient-to: #0b1621 var(--tw-gradient-to-position) !important;
+}
+
+.shadow,
+.shadow-md,
+.shadow-lg,
+.hover\:shadow:hover,
+.hover\:shadow-md:hover,
+.hover\:shadow-lg:hover,
+.hover\:shadow-sm:hover {
+  box-shadow: var(--shadow) !important;
+}
+
+.tech-shell {
+  position: relative;
+}
+
+.tech-shell::before,
+.tech-shell::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: min(9vw, 96px);
+  pointer-events: none;
+  opacity: 0.55;
+}
+
+.tech-shell::before {
+  left: 0;
+  border-right: 1px solid rgba(87, 212, 255, 0.14);
+  background: linear-gradient(180deg, rgba(87, 212, 255, 0.08), transparent 18%);
+}
+
+.tech-shell::after {
+  right: 0;
+  border-left: 1px solid rgba(255, 191, 105, 0.12);
+  background: linear-gradient(180deg, rgba(255, 191, 105, 0.05), transparent 18%);
+}
+
+.tech-panel {
+  background: linear-gradient(180deg, rgba(14, 28, 41, 0.95), rgba(9, 18, 28, 0.9));
+  border: 1px solid var(--border);
+  border-radius: 1.25rem;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(14px);
+}
+
+.tech-heading {
+  font-family: var(--font-geist-mono), monospace;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.tech-subtle {
+  color: var(--muted);
+}
+
+.tech-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  border-radius: 999px;
+  border: 1px solid rgba(87, 212, 255, 0.22);
+  background: rgba(87, 212, 255, 0.08);
+  color: #c8ebff;
+  padding: 0.35rem 0.8rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(8, 18, 28, 0.92);
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  border: 3px solid rgba(8, 18, 28, 0.92);
+  background: rgba(87, 212, 255, 0.34);
+}
