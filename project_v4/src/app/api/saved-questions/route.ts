@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs/server";
 import { createSupabaseServerClient } from "@/lib/supabase";
 
-// GET: we get all current users
 export async function GET() {
   const { userId, getToken } = await auth();
   if (!userId) {

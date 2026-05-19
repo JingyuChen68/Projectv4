@@ -1,7 +1,6 @@
 import { RealQuestion, IndustryTopic } from "./industryIntel";
 
 export const REAL_QUESTIONS_EXTRA: RealQuestion[] = [
-  // NVIDIA - GPU Firmware, CUDA, Jetson
   {
     id: 200,
     company: "NVIDIA",
