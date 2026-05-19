@@ -1,8 +1,10 @@
 "use client";
 
+import type { ReactNode } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { UserButton, SignInButton, useUser } from "@clerk/nextjs";
+import { isClerkEnabled } from "@/lib/authConfig";
 
 const NAV_ITEMS = [
   { href: "/", label: "Dashboard", icon: "01" },
@@ -18,8 +20,53 @@ const NAV_ITEMS = [
 ];
 
 export default function Navbar() {
-  const pathname = usePathname();
+  if (!isClerkEnabled) {
+    return (
+      <NavbarFrame
+        authSlot={
+          <div className="rounded-xl border border-cyan-300/20 bg-slate-900/70 px-4 py-2 font-mono text-[0.68rem] uppercase tracking-[0.22em] text-cyan-100">
+            Local Demo
+          </div>
+        }
+      />
+    );
+  }
+
+  return <ClerkNavbar />;
+}
+
+function ClerkNavbar() {
   const { isSignedIn, isLoaded } = useUser();
+
+  return (
+    <NavbarFrame
+      authSlot={
+        !isLoaded ? (
+          <div className="h-10 w-10 animate-pulse rounded-full border border-cyan-300/20 bg-slate-800/70" />
+        ) : isSignedIn ? (
+          <div className="rounded-full border border-cyan-300/20 bg-slate-900/70 p-1">
+            <UserButton
+              appearance={{
+                elements: {
+                  avatarBox: "w-8 h-8",
+                },
+              }}
+            />
+          </div>
+        ) : (
+          <SignInButton mode="modal">
+            <button className="rounded-xl border border-cyan-300/30 bg-cyan-400/90 px-4 py-2 text-sm font-semibold text-slate-950 hover:bg-cyan-300">
+              Sign In
+            </button>
+          </SignInButton>
+        )
+      }
+    />
+  );
+}
+
+function NavbarFrame({ authSlot }: { authSlot: ReactNode }) {
+  const pathname = usePathname();
 
   return (
     <nav className="sticky top-0 z-50 border-b border-cyan-400/10 bg-slate-950/70 backdrop-blur-xl">
@@ -50,27 +97,7 @@ export default function Navbar() {
             </div>
           </div>
 
-          <div className="flex items-center gap-3 self-start lg:self-auto">
-            {!isLoaded ? (
-              <div className="h-10 w-10 animate-pulse rounded-full border border-cyan-300/20 bg-slate-800/70" />
-            ) : isSignedIn ? (
-              <div className="rounded-full border border-cyan-300/20 bg-slate-900/70 p-1">
-                <UserButton
-                  appearance={{
-                    elements: {
-                      avatarBox: "w-8 h-8",
-                    },
-                  }}
-                />
-              </div>
-            ) : (
-              <SignInButton mode="modal">
-                <button className="rounded-xl border border-cyan-300/30 bg-cyan-400/90 px-4 py-2 text-sm font-semibold text-slate-950 hover:bg-cyan-300">
-                  Sign In
-                </button>
-              </SignInButton>
-            )}
-          </div>
+          <div className="flex items-center gap-3 self-start lg:self-auto">{authSlot}</div>
         </div>
 
         <div className="overflow-x-auto">

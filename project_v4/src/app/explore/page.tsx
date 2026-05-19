@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { useUser } from "@clerk/nextjs";
+import Image from "next/image";
+import { isClerkEnabled } from "@/lib/authConfig";
 
 interface Repo {
   id: number;
@@ -22,7 +24,20 @@ interface SavedRepoRow {
 }
 
 export default function ExplorePage() {
+  if (!isClerkEnabled) {
+    return <ExploreWorkspace isSignedIn={false} />;
+  }
+
+  return <ClerkExplorePage />;
+}
+
+function ClerkExplorePage() {
   const { isSignedIn } = useUser();
+
+  return <ExploreWorkspace isSignedIn={Boolean(isSignedIn)} />;
+}
+
+function ExploreWorkspace({ isSignedIn }: { isSignedIn: boolean }) {
   const [query, setQuery] = useState("");
   const [repos, setRepos] = useState<Repo[]>([]);
   const [loading, setLoading] = useState(false);
@@ -200,9 +215,11 @@ export default function ExplorePage() {
                 >
                   <div className="flex items-start gap-3 mb-3">
                     {repo.owner_avatar_url && (
-                      <img
+                      <Image
                         src={repo.owner_avatar_url}
                         alt=""
+                        width={32}
+                        height={32}
                         className="w-8 h-8 rounded-full"
                       />
                     )}

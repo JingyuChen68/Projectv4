@@ -3,6 +3,8 @@
 import { useState, useEffect } from "react";
 import { useUser } from "@clerk/nextjs";
 import Link from "next/link";
+import Image from "next/image";
+import { isClerkEnabled } from "@/lib/authConfig";
 
 interface SavedRepo {
   id: string;
@@ -31,6 +33,14 @@ interface SavedQuestion {
 }
 
 export default function SavedPage() {
+  if (!isClerkEnabled) {
+    return <SavedLocalDemoPage />;
+  }
+
+  return <ClerkSavedPage />;
+}
+
+function ClerkSavedPage() {
   const { isSignedIn, user } = useUser();
   const [repos, setRepos] = useState<SavedRepo[]>([]);
   const [questions, setQuestions] = useState<SavedQuestion[]>([]);
@@ -179,9 +189,11 @@ export default function SavedPage() {
               >
                 <div className="flex items-start gap-3 mb-3">
                   {repo.owner_avatar_url && (
-                    <img
+                    <Image
                       src={repo.owner_avatar_url}
                       alt=""
+                      width={32}
+                      height={32}
                       className="w-8 h-8 rounded-full"
                     />
                   )}
@@ -285,6 +297,31 @@ export default function SavedPage() {
           ))}
         </div>
       )}
+    </div>
+  );
+}
+
+function SavedLocalDemoPage() {
+  return (
+    <div className="mx-auto max-w-2xl py-16 text-center">
+      <div className="rounded-2xl border border-cyan-300/15 bg-slate-950/45 p-8">
+        <p className="font-mono text-xs uppercase tracking-[0.26em] text-cyan-300/75">
+          Local Demo Mode
+        </p>
+        <h1 className="mt-3 text-2xl font-semibold text-slate-50">
+          Saved items need Clerk keys
+        </h1>
+        <p className="mt-3 text-sm leading-6 text-slate-400">
+          Public study tools are available without sign-in. Configure Clerk and
+          Supabase environment variables to enable saved projects and questions.
+        </p>
+        <Link
+          href="/explore"
+          className="mt-6 inline-flex rounded-xl border border-cyan-300/30 bg-cyan-400 px-5 py-2.5 text-sm font-semibold text-slate-950 hover:bg-cyan-300"
+        >
+          Explore Projects
+        </Link>
+      </div>
     </div>
   );
 }

@@ -132,9 +132,9 @@ test.describe("EmbedPrep — Full App Test Suite", () => {
   test("Chip Lab page filters and compares MCUs", async ({ page }) => {
     await page.goto("/chips");
     await expect(page.getByRole("heading", { name: /Pick silicon from requirements/ })).toBeVisible();
-    await expect(page.getByText("ESP32-S3-WROOM-1")).toBeVisible();
+    await expect(page.getByRole("heading", { name: "ESP32-S3-WROOM-1" }).first()).toBeVisible();
     await page.getByLabel("Connectivity").selectOption("Bluetooth LE");
-    await expect(page.getByText("nRF52840")).toBeVisible();
+    await expect(page.getByRole("heading", { name: "nRF52840" }).first()).toBeVisible();
     await expect(page.getByRole("heading", { name: "Selected MCU specs" })).toBeVisible();
   });
 
